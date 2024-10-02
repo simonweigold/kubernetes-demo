@@ -1,11 +1,15 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const apiUrl = 'http://backend-service:5000/api/message';
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello from Node.js frontend!' });
-});
+async function fetchBackendMessage() {
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        document.getElementById('message').textContent = `Backend says: ${data.message}`;
+    } catch (error) {
+        console.error('Error fetching message from backend:', error);
+        document.getElementById('message').textContent = 'Error fetching message from backend';
+    }
+}
 
-app.listen(port, () => {
-  console.log(`Frontend is listening on port ${port}`);
-});
+// Call the function when the page loads
+window.onload = fetchBackendMessage;
