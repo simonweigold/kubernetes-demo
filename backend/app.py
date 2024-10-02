@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 # Mock database for storing expenses
-expenses = []
+expenses = [{"id": 1, "one": 1}, {"id": 3, "two": 3}]
 id_counter = 1
 
 @app.route('/expenses', methods=['POST'])
