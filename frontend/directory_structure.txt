@@ -1,5 +1,8 @@
 ./
 ├── app/
+│   ├── api/
+│   │   └── expenses/
+│   │       └── route.ts
 │   ├── favicon.ico
 │   ├── fonts/
 │   │   ├── GeistMonoVF.woff
@@ -17,4 +20,4 @@
 ├── tailwind.config.ts
 └── tsconfig.json
 
-3 directories, 15 files
+5 directories, 16 files
