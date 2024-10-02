@@ -1,18 +1,25 @@
-from flask import Flask, jsonify
-import os
+# Flask app (backend.py)
+
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    secret_message = os.getenv('SECRET_MESSAGE', 'No secret message found.')
-    return f"The secret message is: {secret_message}"
+# Mock database for storing expenses
+expenses = []
+id_counter = 1
 
-# New API route to return JSON data
-@app.route('/api/message', methods=['GET'])
-def get_message():
-    secret_message = os.getenv('SECRET_MESSAGE', 'No secret message found.')
-    return jsonify({"message": secret_message})
+@app.route('/expenses', methods=['POST'])
+def add_expense():
+    global id_counter
+    expense = request.json
+    expense['id'] = id_counter
+    id_counter += 1
+    expenses.append(expense)
+    return jsonify(expense), 201
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+@app.route('/expenses', methods=['GET'])
+def get_expenses():
+    return jsonify(expenses), 200
+
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0')
