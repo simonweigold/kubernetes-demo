@@ -1,15 +1,30 @@
-const apiUrl = 'http://backend-service:5000/api/message';
+const express = require('express');
+const path = require('path');
+const fetch = require('node-fetch');
+const app = express();
 
-async function fetchBackendMessage() {
+const PORT = 3000;
+
+// Serve the static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve the index.html file for the root route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+
+// API route to get message from the backend
+app.get('/api/message', async (req, res) => {
     try {
-        const response = await fetch(apiUrl);
+        const response = await fetch('http://backend-service:5000/api/message');
         const data = await response.json();
-        document.getElementById('message').textContent = `Backend says: ${data.message}`;
+        res.json({ message: data.message });
     } catch (error) {
         console.error('Error fetching message from backend:', error);
-        document.getElementById('message').textContent = 'Error fetching message from backend';
+        res.status(500).json({ error: 'Unable to fetch message from backend' });
     }
-}
+});
 
-// Call the function when the page loads
-window.onload = fetchBackendMessage;
+app.listen(PORT, () => {
+    console.log(`Frontend is running on http://localhost:${PORT}`);
+});
