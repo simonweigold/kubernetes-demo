@@ -20,7 +20,7 @@ spec:
   type: NodePort
   ports:
     - port: 80
-      targetPort: 5000
+      targetPort: 8080
       nodePort: 30001
   selector:
     app: backend
@@ -42,10 +42,13 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: frontend:latest
+        image: demo-frontend:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 3000
+        env:
+          - name: BACKEND_URL
+            value: "http://backend-service.default.svc.cluster.local"
 
 ---
 apiVersion: apps/v1
@@ -64,10 +67,10 @@ spec:
     spec:
       containers:
       - name: backend
-        image: backend:latest
+        image: backend-express:latest
         imagePullPolicy: Never
         ports:
-        - containerPort: 5000
+        - containerPort: 8080
         envFrom:
         - secretRef:
             name: backend-env
