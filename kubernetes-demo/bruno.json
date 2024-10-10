@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "kubernetes-demo",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
