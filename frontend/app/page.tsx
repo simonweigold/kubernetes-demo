@@ -13,13 +13,17 @@ const Home = () => {
   // Explicitly define the type for the state
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null); // State to track errors
+  const [message, setMessage] = useState<string | null>(null); // State for backend message
 
+  // Fetch expenses
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/expenses'); // Use the correct backend URL
+        const response = await axios.get('http://localhost:8080/expenses');
         setExpenses(response.data);
       } catch (error) {
+        setError('Failed to fetch expenses. Please check your backend connection.');
         console.error('Error fetching expenses:', error);
       } finally {
         setLoading(false);
@@ -29,8 +33,27 @@ const Home = () => {
     fetchExpenses();
   }, []);
 
+  // Fetch the message from backend
+  useEffect(() => {
+    const fetchMessage = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/message');
+        setMessage(response.data.message);
+      } catch (error) {
+        console.error('Error fetching message:', error);
+        setMessage('Failed to fetch message.');
+      }
+    };
+
+    fetchMessage();
+  }, []);
+
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
   }
 
   return (
@@ -43,6 +66,12 @@ const Home = () => {
           </li>
         ))}
       </ul>
+
+      {/* New section to display the message from backend */}
+      <div>
+        <h2>Message from Backend:</h2>
+        <p>{message}</p>
+      </div>
     </div>
   );
 };
