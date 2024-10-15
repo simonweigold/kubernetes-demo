@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: demo-frontend:latest
+        image: kubernetes-demo-frontend
         imagePullPolicy: Never
         ports:
         - containerPort: 3000
@@ -67,7 +67,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: backend-express:latest
+        image: kubernetes-demo-backend
         imagePullPolicy: Never
         ports:
         - containerPort: 8080

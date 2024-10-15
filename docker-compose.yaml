@@ -2,7 +2,7 @@ version: '3.8'  # Specify the version of Docker Compose
 
 services:
   backend:
-    container_name: demo-backend  # Meaningful name for the backend container
+    container_name: demo-backend:latest  # Meaningful name for the backend container
     build:
       context: ./backend-express  # Path to the backend Dockerfile
     ports:
@@ -15,7 +15,7 @@ services:
       - app-network  # Use a shared network with the frontend service
 
   frontend:
-    container_name: demo-frontend  # Meaningful name for the frontend container
+    container_name: demo-frontend:latest  # Meaningful name for the frontend container
     build:
       context: ./frontend  # Path to the frontend Dockerfile
     ports:
