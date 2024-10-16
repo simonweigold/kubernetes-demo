@@ -32,8 +32,25 @@ app.get('/message', (req, res) => {
   res.status(200).json({ message });
 });
 
-// Start the server on port 8080
-const PORT = 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+// Start the server
+const port = 5000;
+const server = app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
+
+// Handle termination signals (graceful shutdown)
+process.on('SIGTERM', () => {
+  console.log('SIGTERM signal received: closing server');
+  server.close(() => {
+      console.log('Server closed');
+      process.exit(0);
+  });
+});
+
+process.on('SIGINT', () => {
+  console.log('SIGINT signal received: closing server');
+  server.close(() => {
+      console.log('Server closed');
+      process.exit(0);
+  });
 });
