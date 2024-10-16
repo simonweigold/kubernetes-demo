@@ -20,7 +20,7 @@ const Home = () => {
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/expenses');
+        const response = await axios.get('http://localhost:5000/expenses');
         setExpenses(response.data);
       } catch (error) {
         setError('Failed to fetch expenses. Please check your backend connection.');
@@ -37,7 +37,7 @@ const Home = () => {
   useEffect(() => {
     const fetchMessage = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/message');
+        const response = await axios.get('http://localhost:5000/message');
         setMessage(response.data.message);
       } catch (error) {
         console.error('Error fetching message:', error);

@@ -20,7 +20,7 @@ spec:
   type: NodePort
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: 5000
       nodePort: 30001
   selector:
     app: backend
@@ -42,8 +42,8 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: kubernetes-demo-frontend
-        imagePullPolicy: Never
+        image: demo-frontend:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
         env:
@@ -67,7 +67,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: kubernetes-demo-backend
-        imagePullPolicy: Never
+        image: demo-backend:latest
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080
+        - containerPort: 5000
