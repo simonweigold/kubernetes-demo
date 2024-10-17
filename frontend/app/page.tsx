@@ -20,7 +20,7 @@ const Home = () => {
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/expenses');
+        const response = await axios.get(`${process.env.BACKEND_URL}/expenses`);
         setExpenses(response.data);
       } catch (error) {
         setError('Failed to fetch expenses. Please check your backend connection.');
@@ -37,7 +37,7 @@ const Home = () => {
   useEffect(() => {
     const fetchMessage = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/message');
+        const response = await axios.get(`${process.env.BACKEND_URL}/expenses`);
         setMessage(response.data.message);
       } catch (error) {
         console.error('Error fetching message:', error);
@@ -53,8 +53,8 @@ const Home = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
-  }
+    return <div>{error}{process.env.BACKEND_URL}</div>
+    }
 
   return (
     <div>
@@ -71,6 +71,11 @@ const Home = () => {
       <div>
         <h2>Message from Backend:</h2>
         <p>{message}</p>
+      </div>
+
+      <div>
+        <h2>Backend Endpoint:</h2>
+        <p>{process.env.BACKEND_URL}</p>
       </div>
     </div>
   );
