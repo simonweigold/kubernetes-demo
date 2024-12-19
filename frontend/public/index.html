@@ -4,6 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
     <title>Simple Frontend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+    </style>
 </head>
 <body>
     <h1>Frontend</h1>
@@ -11,7 +35,9 @@
 
     <script>
       // Replace 'http://backend:5000/api' with the appropriate URL in your cluster
+      //fetch('http://20.250.172.65:5000/api')
       fetch('http://backend:5000/api')
+      //fetch('http://127.0.0.1:5000/api')
         .then(response => response.json())
         .then(data => {
           document.getElementById('response').innerText = data.message;
