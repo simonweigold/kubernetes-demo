@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # This will allow all origins by default
 
 @app.route('/api')
 def hello_api():
