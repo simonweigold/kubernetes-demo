@@ -15,6 +15,7 @@ spec:
       containers:
       - name: frontend
         image: simonweigold/kubernetes-demo-frontend:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
         env:
