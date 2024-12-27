@@ -6,7 +6,7 @@ CORS(app)  # This will allow all origins by default
 
 @app.route('/api')
 def hello_api():
-    return jsonify({"message": "Hello from Python Backend!"})
+    return jsonify({"message": "G'day from Python Backend!"})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
