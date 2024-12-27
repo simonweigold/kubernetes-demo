@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
-    <title>Simple Frontend</title>
+    <title>Kubernetes Demo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,17 +11,12 @@
             background-color: #222;
             color: #ccc;
         }
-        title {
+        title, h1, h2 {
             margin: 0;
             padding: 0;
             text-align: center;
         }
-        h1 {
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        #response {
+        #response, #secret {
             margin: 20px;
             padding: 20px;
             display: flex;
@@ -38,6 +33,10 @@
         <h1>Frontend</h1>
     </div>
     <div id="response"></div>
+    <div class="title">
+        <h2>You want to know my secret?</h2>
+    </div>
+    <div id="secret"></div>
 
     <script>
       // Replace 'http://backend:5000/api' with the appropriate URL in your cluster
@@ -50,6 +49,16 @@
         })
         .catch(err => {
           document.getElementById('response').innerText = "Error: " + err.toString();
+        });
+
+      // Fetch data for the scret div
+      fetch('/api/secret')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('secret').innerText = data.secret;
+        })
+        .catch(err => {
+          document.getElementById('secret').innerText = "Oops, looks like we need to fix something :-)" + "\n" + "Error: " + err.toString();
         });
     </script>
 </body>
