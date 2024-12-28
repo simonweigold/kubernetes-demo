@@ -21,3 +21,8 @@ spec:
         env:
           - name: AUTH_ADDRESS
             value: backend-service
+          - name: SECRET_MESSAGE
+            valueFrom:
+              secretKeyRef:
+                name: backend-secrets
+                key: SECRET_MESSAGE
