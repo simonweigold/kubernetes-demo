@@ -7,11 +7,16 @@ app = Flask(__name__)
 CORS(app)  # This will allow all origins by default
 
 load_dotenv()
+NAME = os.getenv('NAME', "World")
 SECRET_MESSAGE = os.getenv('SECRET_MESSAGE', "Try again")
 
 @app.route('/api')
 def hello_api():
     return jsonify({"message": "Hello from Python Backend!"})
+
+@app.route('/api/name')
+def name_api():
+    return jsonify({"name": NAME})
 
 @app.route('/api/secret')
 def secret_api():

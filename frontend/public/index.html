@@ -32,6 +32,7 @@
     <div class="title">
         <h1>Frontend</h1>
     </div>
+    <div id="greetings"></div>
     <div id="response"></div>
     <div class="title">
         <h2>You want to know my secret?</h2>
@@ -51,7 +52,17 @@
           document.getElementById('response').innerText = "Error: " + err.toString();
         });
 
-      // Fetch data for the scret div
+      // Fetch data for the greetins div and assemble text like "Hello, <name>!"
+      fetch('/api/name')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('greetings').innerText = "Hello, " + data.name + "!";
+        })
+        .catch(err => {
+          document.getElementById('greetings').innerText = "Error: " + err.toString();
+        });
+
+      // Fetch data for the secret div
       fetch('/api/secret')
         .then(response => response.json())
         .then(data => {

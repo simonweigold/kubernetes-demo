@@ -26,3 +26,8 @@ spec:
               secretKeyRef:
                 name: backend-secrets
                 key: SECRET_MESSAGE
+          - name: NAME
+            valueFrom:
+              secretKeyRef:
+                name: backend-secrets
+                key: NAME
