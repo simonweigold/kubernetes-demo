@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: simonweigold/kubernetes-demo-backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+          - name: AUTH_ADDRESS
+            value: backend-service
+          - name: SECRET_MESSAGE
+            valueFrom:
+              secretKeyRef:
+                name: backend-secrets
+                key: SECRET_MESSAGE
+          - name: NAME
+            valueFrom:
+              secretKeyRef:
+                name: backend-secrets
+                key: NAME
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+    - port: 5000
+      protocol: TCP
+      targetPort: 5000
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-secrets
+type: Opaque
+stringData:
+  NAME: "Simon"
+  SECRET_MESSAGE: "This is a secret message from the manifest."
